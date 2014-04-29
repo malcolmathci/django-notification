@@ -4,7 +4,7 @@ from django.utils.translation import ugettext
 class OnSiteBackend(backends.BaseBackend):
 
     def can_send(self, user, notice_type):
-        can_send = super(EmailBackend, self).can_send(user, notice_type)
+        can_send = super(OnSiteBackend, self).can_send(user, notice_type)
         if can_send:
             return True
         return False
