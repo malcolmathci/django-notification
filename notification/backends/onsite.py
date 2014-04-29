@@ -1,5 +1,4 @@
 from notification import backends
-from notification.models import Notice
 from django.utils.translation import ugettext
 
 class OnSiteBackend(backends.BaseBackend):
@@ -11,6 +10,7 @@ class OnSiteBackend(backends.BaseBackend):
         return False
 
     def deliver(self, recipient, sender, notice_type, extra_context):
+        from notification.models import Notice
         Notice.objects.create(recipient=recipient,
                                            notice_type=notice_type,
                                            sender=sender,
