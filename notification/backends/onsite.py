@@ -1,7 +1,10 @@
 from notification import backends
 from django.utils.translation import ugettext
+from django.template.loader import render_to_string
+
 
 class OnSiteBackend(backends.BaseBackend):
+    spam_sensitivity = 0
 
     def can_send(self, user, notice_type):
         can_send = super(OnSiteBackend, self).can_send(user, notice_type)
@@ -11,8 +14,20 @@ class OnSiteBackend(backends.BaseBackend):
 
     def deliver(self, recipient, sender, notice_type, extra_context):
         from notification.models import Notice
-        Notice.objects.create(recipient=recipient,
-                                           notice_type=notice_type,
-                                           sender=sender,
-                                           message=ugettext(notice_type.display),
-                                           on_site=True)
+
+        context = self.default_context()
+        context.update(extra_context)
+        context.update({'notice_type': notice_type, 'sender': sender})
+
+        messages = self.get_formatted_messages((
+            "full.html",
+        ), notice_type.label, context)
+
+        Notice.objects.create(
+            recipient=recipient,
+            notice_type=notice_type,
+            sender=sender,
+            message=messages['full.html'],
+            on_site=True,
+            target_url=extra_context['target'].url if hasattr(extra_context['target'], 'url') else None
+        )

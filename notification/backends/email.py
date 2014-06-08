@@ -7,7 +7,7 @@ from notification import backends
 
 
 class EmailBackend(backends.BaseBackend):
-    spam_sensitivity = 2
+    spam_sensitivity = 0
 
     def can_send(self, user, notice_type):
         can_send = super(EmailBackend, self).can_send(user, notice_type)
@@ -25,10 +25,11 @@ class EmailBackend(backends.BaseBackend):
             "notice": ugettext(notice_type.display),
         })
         context.update(extra_context)
+        context.update({'notice_type': notice_type, 'sender': sender})
 
         messages = self.get_formatted_messages((
             "short.txt",
-            "full.txt"
+            "full.txt",
         ), notice_type.label, context)
 
         subject = "".join(render_to_string("notification/email_subject.txt", {
