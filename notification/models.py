@@ -41,10 +41,11 @@ class NoticeType(models.Model):
 
     label = models.CharField(_("label"), max_length=40)
     display = models.CharField(_("display"), max_length=50)
-    description = models.CharField(_("description"), max_length=100)
+    past_tense = models.CharField(_("Past Tense"), max_length=100)
+    description = models.TextField(_("description"))
 
     # by default only on for media with sensitivity less than or equal to this number
-    default = models.IntegerField(_("default"))
+    default = models.IntegerField(_("default"), default=0)
 
     def __str__(self):
         return self.label
@@ -54,7 +55,7 @@ class NoticeType(models.Model):
         verbose_name_plural = _("notice types")
 
     @classmethod
-    def create(cls, label, display, description, default=2, verbosity=1):
+    def create(cls, label, display, past_tense, description, default=2, verbosity=1):
         """
         Creates a new NoticeType.
 
@@ -65,6 +66,9 @@ class NoticeType(models.Model):
             updated = False
             if display != notice_type.display:
                 notice_type.display = display
+                updated = True
+            if past_tense != notice_type.past_tense:
+                notice_type.past_tense = past_tense
                 updated = True
             if description != notice_type.description:
                 notice_type.description = description
@@ -77,7 +81,7 @@ class NoticeType(models.Model):
                 if verbosity > 1:
                     print("Updated %s NoticeType" % label)
         except cls.DoesNotExist:
-            cls(label=label, display=display, description=description, default=default).save()
+            cls(label=label, display=display, past_tense=past_tense, description=description, default=default).save()
             if verbosity > 1:
                 print("Created %s NoticeType" % label)
 

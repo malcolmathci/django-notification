@@ -22,7 +22,7 @@ class EmailBackend(backends.BaseBackend):
         context.update({
             "recipient": recipient,
             "sender": sender,
-            "notice": ugettext(notice_type.display),
+            "notice": ugettext(notice_type.past_tense),
         })
         context.update(extra_context)
         context.update({'notice_type': notice_type, 'sender': sender})
