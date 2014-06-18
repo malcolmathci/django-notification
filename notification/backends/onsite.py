@@ -23,11 +23,15 @@ class OnSiteBackend(backends.BaseBackend):
             "full.html",
         ), notice_type.label, context)
 
+        target_url = extra_context['target'].url if hasattr(extra_context['target'], 'url') else sender.get_absolute_url
+        if recipient == extra_context['target']:
+            target_url = sender.get_absolute_url()
+
         Notice.objects.create(
             recipient=recipient,
             notice_type=notice_type,
             sender=sender,
             message=messages['full.html'],
             on_site=True,
-            target_url=extra_context['target'].url if hasattr(extra_context['target'], 'url') else None
+            target_url=target_url
         )
