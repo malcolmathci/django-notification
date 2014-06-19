@@ -27,7 +27,7 @@ def notice_settings(request):
             value is ``True`` or ``False`` depending on a ``request.POST``
             variable called ``form_label``, whose valid value is ``on``.
     """
-    notice_types = NoticeType.objects.all()
+    notice_types = NoticeType.objects.filter(state=1).order_by('display')
     settings_table = []
     for notice_type in notice_types:
         settings_row = []

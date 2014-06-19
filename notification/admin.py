@@ -4,7 +4,8 @@ from notification.models import NoticeType, NoticeSetting, Notice, NoticeQueueBa
 
 
 class NoticeTypeAdmin(admin.ModelAdmin):
-    list_display = ["label", "display", "past_tense", "description", "default"]
+    list_display = ["label", "display", "past_tense", "description", "state", "default"]
+    list_editable = ('state', )
 
 
 class NoticeSettingAdmin(admin.ModelAdmin):

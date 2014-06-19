@@ -20,6 +20,8 @@ class BaseBackend(object):
         the given user and notice_type.
         """
         from notification.models import NoticeSetting
+        if notice_type.state < 1:
+            return False
         return NoticeSetting.for_user(user, notice_type, self.medium_id).send
 
     def deliver(self, recipient, sender, notice_type, extra_context):

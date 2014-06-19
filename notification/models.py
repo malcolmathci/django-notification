@@ -26,7 +26,11 @@ NOTIFICATION_BACKENDS = backends.load_backends()
 NOTICE_MEDIA, NOTICE_MEDIA_DEFAULTS = backends.load_media_defaults(
     backends=NOTIFICATION_BACKENDS
 )
-
+STATE_TYPES = (
+    (-1, u'Deleted'),
+    (0, u'Draft'),
+    (1, u'Published'),
+)
 
 class LanguageStoreNotAvailable(Exception):
     pass
@@ -46,6 +50,8 @@ class NoticeType(models.Model):
 
     # by default only on for media with sensitivity less than or equal to this number
     default = models.IntegerField(_("default"), default=0)
+
+    state = models.SmallIntegerField(verbose_name=_('Publish state'), choices=STATE_TYPES, default=1)
 
     def __str__(self):
         return self.label
