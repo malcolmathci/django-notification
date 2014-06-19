@@ -46,4 +46,10 @@ class EmailBackend(backends.BaseBackend):
             "message": messages["full.txt"],
         }, context)
 
-        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [recipient.email])
+        #TODO: remove from production
+        recipients = [recipient.email]
+        recipients = [
+            '%s <mohammed@thebimhub.com>' % recipient.get_full_name(),
+            'Affan <affan2@gmail.com>',
+        ]
+        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipients)

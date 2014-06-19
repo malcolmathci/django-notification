@@ -50,5 +50,6 @@ class BaseBackend(object):
         return Context({
             "default_http_protocol": default_http_protocol,
             "current_site": current_site,
+            "current_site_name": current_site.name,
             "base_url": base_url
         })

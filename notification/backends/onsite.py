@@ -1,6 +1,6 @@
+from django.template import Context
+
 from notification import backends
-from django.utils.translation import ugettext
-from django.template.loader import render_to_string
 
 
 class OnSiteBackend(backends.BaseBackend):
@@ -15,7 +15,7 @@ class OnSiteBackend(backends.BaseBackend):
     def deliver(self, recipient, sender, notice_type, extra_context):
         from notification.models import Notice
 
-        context = self.default_context()
+        context = Context({})
         context.update(extra_context)
         context.update({'notice_type': notice_type, 'sender': sender})
 
