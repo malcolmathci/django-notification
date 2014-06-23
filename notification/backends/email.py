@@ -23,9 +23,9 @@ class EmailBackend(backends.BaseBackend):
             "recipient": recipient,
             "sender": sender,
             "notice": ugettext(notice_type.past_tense),
+            'default_profile_photo': settings.DEFAULT_PROFILE_PHOTO,
         })
         context.update(extra_context)
-        context.update({'notice_type': notice_type, 'sender': sender})
 
         target_url = extra_context['target'].url if hasattr(extra_context['target'], 'url') else sender.get_absolute_url
         if recipient == extra_context['target']:

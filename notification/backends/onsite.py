@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.template import Context
+from django.utils.translation import ugettext
 
 from notification import backends
 
@@ -16,8 +18,13 @@ class OnSiteBackend(backends.BaseBackend):
         from notification.models import Notice
 
         context = Context({})
+        context.update({
+            "recipient": recipient,
+            "sender": sender,
+            "notice": ugettext(notice_type.past_tense),
+            'default_profile_photo': settings.DEFAULT_PROFILE_PHOTO,
+        })
         context.update(extra_context)
-        context.update({'notice_type': notice_type, 'sender': sender})
 
         messages = self.get_formatted_messages((
             "full.html",
