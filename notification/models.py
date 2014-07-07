@@ -210,6 +210,12 @@ class Notice(models.Model):
         return reverse("notification_notice", args=[str(self.pk)])
 
 
+class NoticeLastSeen(models.Model):
+    recipient = models.OneToOneField(AUTH_USER_MODEL, related_name="notices_seen", verbose_name=_("recipient"))
+    notice = models.ForeignKey(Notice)
+    seen = models.DateTimeField(_("seen"), auto_now=True, editable=False)
+
+
 class NoticeQueueBatch(models.Model):
     """
     A queued notice.
