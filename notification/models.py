@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 from __future__ import print_function
 
 import base64
-import datetime
 
 from django.db import models
 from django.db.models.query import QuerySet
@@ -12,8 +11,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language, activate
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.six.moves import cPickle as pickle  # pylint: disable-msg=F
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
+
 
 from .compat import AUTH_USER_MODEL
 
@@ -170,7 +171,11 @@ class NoticeManager(models.Manager):
 class Notice(models.Model):
 
     recipient = models.ForeignKey(AUTH_USER_MODEL, related_name="recieved_notices", verbose_name=_("recipient"))
-    sender = models.ForeignKey(AUTH_USER_MODEL, null=True, related_name="sent_notices", verbose_name=_("sender"))
+
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    sender = generic.GenericForeignKey('content_type', 'object_id')
+
     message = models.TextField(_("message"))
     notice_type = models.ForeignKey(NoticeType, verbose_name=_("notice type"))
     added = models.DateTimeField(_("added"), auto_now_add=True, editable=False)
