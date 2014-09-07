@@ -2,8 +2,6 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext
-from email.header import Header
-from email.mime.text import MIMEText
 
 from notification import backends
 
