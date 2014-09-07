@@ -2,6 +2,8 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext
+from email.header import Header
+from email.mime.text import MIMEText
 
 from notification import backends
 
@@ -46,5 +48,5 @@ class EmailBackend(backends.BaseBackend):
             "message": messages["full.txt"],
         }, context)
 
-        recipients = ['%s <%s>' % (recipient.get_full_name(), recipient.email)]
+        recipients = ['"%s" <%s>' % (recipient.get_full_name(), recipient.email)]
         send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipients)
