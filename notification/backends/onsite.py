@@ -17,6 +17,10 @@ class OnSiteBackend(backends.BaseBackend):
     def deliver(self, recipient, sender, notice_type, extra_context):
         from notification.models import Notice
 
+        #postman stuff
+        if 'pm_message' in extra_context:
+            sender = extra_context['pm_message'].sender
+
         context = Context({})
         context.update({
             "recipient": recipient,
@@ -30,9 +34,11 @@ class OnSiteBackend(backends.BaseBackend):
             "full.html",
         ), notice_type.label, context)
 
-        target_url = extra_context['target'].url if hasattr(extra_context['target'], 'url') else sender.get_absolute_url()
-        if recipient == extra_context['target']:
+        target_url = extra_context['target'].url if 'target' in extra_context and hasattr(extra_context['target'], 'url') else sender.get_absolute_url()
+        if 'target' in extra_context and recipient == extra_context['target']:
             target_url = sender.get_absolute_url()
+        if 'pm_message' in extra_context:
+            target_url = extra_context['pm_message'].get_absolute_url()
 
         Notice.objects.create(
             recipient=recipient,
