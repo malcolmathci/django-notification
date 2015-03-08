@@ -52,5 +52,4 @@ class EmailBackend(backends.BaseBackend):
             "message": messages["full.txt"],
         }, context)
         recipients = ['"%s" <%s>' % (recipient.get_full_name(), recipient.email)]
-        if extra_context['email']:
-            send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipients)
+        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipients)
