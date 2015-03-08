@@ -51,6 +51,6 @@ class EmailBackend(backends.BaseBackend):
         body = render_to_string("notification/email_body.txt", {
             "message": messages["full.txt"],
         }, context)
-
         recipients = ['"%s" <%s>' % (recipient.get_full_name(), recipient.email)]
-        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipients)
+        if extra_context['email']:
+            send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipients)
