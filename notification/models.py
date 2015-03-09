@@ -276,10 +276,9 @@ def send_now(users, label, extra_context=None, sender=None):
 
         for backend in NOTIFICATION_BACKENDS.values():
             if backend.can_send(user, notice_type):
-                if 'allow_send' in extra_context.keys():
-                    if extra_context['allow_send']:
-                        backend.deliver(user, sender, notice_type, extra_context)
-                        sent = True
+                if 'allow_send' in extra_context and extra_context['allow_send']:
+                    backend.deliver(user, sender, notice_type, extra_context)
+                    sent = True
 
     # reset environment to original language
     activate(current_language)
