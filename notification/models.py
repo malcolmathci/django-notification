@@ -276,7 +276,8 @@ def send_now(users, label, extra_context=None, sender=None):
 
         for backend in NOTIFICATION_BACKENDS.values():
             if backend.can_send(user, notice_type):
-                if 'allow_send' in extra_context and extra_context['allow_send']:
+                if ('disallow_notice' in extra_context and extra_context['disallow_notice'] in [label for id, label in NOTIFICATION_BACKENDS.keys()])\
+                        or 'disallow_notice' not in extra_context:
                     backend.deliver(user, sender, notice_type, extra_context)
                     sent = True
 
