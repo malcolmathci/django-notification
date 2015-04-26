@@ -38,7 +38,6 @@ class EmailBackend(backends.BaseBackend):
             target_url = extra_context['pm_message'].get_absolute_url()
 
         context.update({'target_url': target_url})
-
         messages = self.get_formatted_messages((
             "short.txt",
             "full.txt",

@@ -1,0 +1,4 @@
+{% load i18n %}{% blocktrans %}[{{ current_site }}]
+ 
+{{ message }}
+{% endblocktrans %}
