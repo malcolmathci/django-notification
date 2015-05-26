@@ -18,6 +18,7 @@ class EmailBackend(backends.BaseBackend):
     def deliver(self, recipient, sender, notice_type, extra_context):
         # TODO: require this to be passed in extra_context
 
+        import pdb; pdb.set_trace()
         #postman stuff
         if 'pm_message' in extra_context:
             sender = extra_context['pm_message'].sender
