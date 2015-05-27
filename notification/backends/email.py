@@ -37,16 +37,17 @@ class EmailBackend(backends.BaseBackend):
             target_url = extra_context['pm_message'].get_absolute_url()
 
         context.update({'target_url': target_url})
-
         try:
-            notice_type.label = context['app_label']
-        except:
-            pass
+            messages = self.get_formatted_messages((
+                "short.txt",
+                "full.txt",
+            ), context['app_label'], context)
 
-        messages = self.get_formatted_messages((
-            "short.txt",
-            "full.txt",
-        ), notice_type.label, context)
+        except:
+            messages = self.get_formatted_messages((
+                "short.txt",
+                "full.txt",
+            ), notice_type.label, context)
 
         subject = "".join(render_to_string("notification/email_subject.txt", {
             "message": messages["short.txt"],
