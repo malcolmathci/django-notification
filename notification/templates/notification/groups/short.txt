@@ -2,8 +2,9 @@
 {% if group_user_action == "user_join" %} You have been added to the group {{target.name}}{% endif %}
 {% if group_user_action == "admin_approve" %} Your request for group {{target.name}} has been accepted{% endif %}
 {% if group_user_action == "admin_reject" %} Your request for group {{target.name}} has been rejected{% endif %}
-{% if group_user_action == "admin_ban" %} Your have you banned from group {{target.name}}{% endif %}
-{% if group_user_action == "admin_manager" %} Your have you upgraded to manager in group {{target.name}}{% endif %}
-{% if group_user_action == "admin_unban" %} Your ban is lifted from group {{target.name}}{% endif %}
-{% if group_user_action == "admin_old_owner" %} Owner of group {{target.name}} is changed{% endif %}
+{% if group_user_action == "admin_ban" %} You have you banned from group {{target.name}}{% endif %}
+{% if group_user_action == "admin_manager" %} You have you promoted to manager of the group {{target.name}}{% endif %}
+{% if group_user_action == "admin_unban" %} You are no longer banned from group {{target.name}}{% endif %}
+{% if group_user_action == "admin_old_owner" %} You have removed yourself as owner of the group {{target.name}}{% endif %}
+{% if group_user_action == "admin_new_owner" %} You are now the owner of the group {{target.name}}{% endif %}
 {% endblocktrans %}
