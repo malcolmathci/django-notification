@@ -1,12 +1,35 @@
 {% load i18n %}{% blocktrans %}
-{% if group_user_action == "user_join" %} You have been added in the group {{target.name}}, please folow the link to access the group 
-{{ default_http_protocol }}://{{ current_site }}{%target_url%} {% endif %}
-{% if group_user_action == "admin_approve" %} Your request to join the group {{target.name}}, have been accepted by the group admin, please folow the link to access the group  {{ default_http_protocol }}://{{ current_site }}{%target_url%} {% endif %}
-{% if group_user_action == "admin_reject" %} Your request to join the group {{target.name}}, have been added in the rejected by the group admin, folowing is the link of the group  {{ default_http_protocol }}://{{ current_site }}{%target_url%} {% endif %}
-{% if group_user_action == "admin_ban" %} This is to inform you that you have been banned by the group admin from the group {{target.name}}, folowing is the link of the group  {{ default_http_protocol }}://{{ current_site }}{%target_url%} {% endif %}
-{% if group_user_action == "admin_manager" %} This is to inform you that you status in group {{target.name}}, have been upgraded to manager level by the group admin, folowing is the link of the group  {{ default_http_protocol }}://{{ current_site }}{%target_url%} {% endif %}
-{% if group_user_action == "admin_unban" %} This is to inform you that you have been unbanned from the group {{target.name}}, by the group admin, folowing is the link of the group {{ default_http_protocol }}://{{ current_site }}{%target_url%} {% endif %}
-{% if group_user_action == "admin_old_owner" %} This is to inform you have withdraw yourself from group owner level to manager level in group {{target.name}}, folowing is the link of the group  {{ default_http_protocol }}://{{ current_site }}{%target_url%} {% endif %}
-{% endblocktrans %}
-{% if group_user_action == "admin_new_owner" %} This is to inform you have been upgraded to owner level in the group {{target.name}}, folowing is the link of the group to access it {{ default_http_protocol }}://{{ current_site }}{%target_url%} {% endif %}
+{% if group_user_action == "user_join" %} You have been added to the group '{{target.name}}'.
+
+Please visit the following link to access the group
+{{ default_http_protocol }}://{{ current_site }}{%target_url%}
+{% endif %}
+{% if group_user_action == "admin_approve" %} Your request to join the group '{{target.name}}' has been accepted.
+
+Please visit the following link to access the group
+{{ default_http_protocol }}://{{ current_site }}{%target_url%}
+{% endif %}
+{% if group_user_action == "admin_reject" %} Your request to join the group '{{target.name}}' has been rejected.
+{% endif %}
+{% if group_user_action == "admin_ban" %} This is to inform you that you have been banned from the group '{{target.name}}' for violating it's rules.
+{% endif %}
+{% if group_user_action == "admin_manager" %} This is to inform you that you have been promoted to manager of the group '{{target.name}}'.
+
+Please visit the following link to access the group
+{{ default_http_protocol }}://{{ current_site }}{%target_url%}
+{% endif %}
+{% if group_user_action == "admin_unban" %} This is to inform you that you are no longer banned from the group '{{target.name}}'.
+
+Please visit the following link to access the group
+{{ default_http_protocol }}://{{ current_site }}{%target_url%}
+{% endif %}
+{% if group_user_action == "admin_old_owner" %} This is to inform you have removed yourself as owner of the group '{{target.name}}'.
+
+Please visit the following link to access the group
+{{ default_http_protocol }}://{{ current_site }}{%target_url%}
+{% endif %}
+{% if group_user_action == "admin_new_owner" %} This is to inform you that you are now the owner of the group '{{target.name}}'
+Please visit the following link to access the group
+{{ default_http_protocol }}://{{ current_site }}{%target_url%}
+{% endif %}
 {% endblocktrans %}
