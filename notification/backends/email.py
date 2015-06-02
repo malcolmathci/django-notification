@@ -18,6 +18,11 @@ class EmailBackend(backends.BaseBackend):
     def deliver(self, recipient, sender, notice_type, extra_context):
         # TODO: require this to be passed in extra_context
         #postman stuff
+
+        if 'disallow_notice' in extra_context:
+            if 'email' in extra_context['disallow_notice']:
+                return
+
         if 'pm_message' in extra_context:
             sender = extra_context['pm_message'].sender
 
