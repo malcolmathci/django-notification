@@ -1,7 +1,0 @@
-{% if group_user_action == "user_join" %} {{target.name}}, that new user joined the group {% endif %}
-{% if group_user_action == "admin_approve" %} Your request for group {{target.name}} is accepted{% endif %}
-{% if group_user_action == "admin_reject" %} Your request for group {{target.name}} is rejected{% endif %}
-{% if group_user_action == "admin_ban" %} Your have you banned from group {{target.name}}{% endif %}
-{% if group_user_action == "admin_manager" %} Your have you upgraded to manager in group {{target.name}}{% endif %}
-{% if group_user_action == "admin_unban" %} Your ban is lifted from group {{target.name}}{% endif %}
-{% if group_user_action == "admin_old_owner" %} Owner of group {{target.name}} is changed{% endif %}
