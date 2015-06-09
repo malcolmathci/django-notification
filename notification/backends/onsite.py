@@ -17,7 +17,10 @@ class OnSiteBackend(backends.BaseBackend):
     def deliver(self, recipient, sender, notice_type, extra_context):
         from notification.models import Notice
 
-        #postman stuff
+        if 'disallow_notice' in extra_context:
+            if 'onsite' in extra_context['disallow_notice']:
+                return
+
         if 'pm_message' in extra_context:
             sender = extra_context['pm_message'].sender
 
@@ -30,15 +33,22 @@ class OnSiteBackend(backends.BaseBackend):
         })
         context.update(extra_context)
 
-        messages = self.get_formatted_messages((
-            "full.html",
-        ), notice_type.label, context)
-
         target_url = extra_context['target'].url if 'target' in extra_context and hasattr(extra_context['target'], 'url') else sender.get_absolute_url()
         if 'target' in extra_context and recipient == extra_context['target']:
             target_url = sender.get_absolute_url()
         if 'pm_message' in extra_context:
             target_url = extra_context['pm_message'].get_absolute_url()
+
+        context.update({'target_url': target_url})
+        try:
+            messages = self.get_formatted_messages((
+                "full.html",
+            ), context['app_label'], context)
+
+        except:
+            messages = self.get_formatted_messages((
+                "full.html",
+            ), notice_type.label, context)
 
         Notice.objects.create(
             recipient=recipient,
