@@ -24,22 +24,18 @@ class OnSiteBackend(backends.BaseBackend):
         if 'pm_message' in extra_context:
             sender = extra_context['pm_message'].sender
 
+        target_url = self.get_target_url(extra_context, sender, recipient)
+
         context = Context({})
         context.update({
             "recipient": recipient,
             "sender": sender,
             "notice": ugettext(notice_type.past_tense),
             'default_profile_photo': settings.DEFAULT_PROFILE_PHOTO,
+            'target_url': target_url,
         })
         context.update(extra_context)
 
-        target_url = extra_context['target'].url if 'target' in extra_context and hasattr(extra_context['target'], 'url') else sender.get_absolute_url()
-        if 'target' in extra_context and recipient == extra_context['target']:
-            target_url = sender.get_absolute_url()
-        if 'pm_message' in extra_context:
-            target_url = extra_context['pm_message'].get_absolute_url()
-
-        context.update({'target_url': target_url})
         try:
             messages = self.get_formatted_messages((
                 "full.html",

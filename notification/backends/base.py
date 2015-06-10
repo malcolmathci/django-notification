@@ -55,3 +55,16 @@ class BaseBackend(object):
             "current_site_name": current_site.name,
             "base_url": base_url
         })
+
+    def get_target_url(self, extra_context, sender, recipient):
+        target_url = extra_context['target'].url if 'target' in extra_context and hasattr(extra_context['target'],
+                                                                                          'url') else sender.get_absolute_url()
+        if 'target' in extra_context and recipient == extra_context['target']:
+            target_url = sender.get_absolute_url()
+        if 'pm_message' in extra_context:
+            target_url = extra_context['pm_message'].get_absolute_url()
+        if hasattr(target_url, '__call__'):
+            target_url = target_url()
+
+        return target_url
+
