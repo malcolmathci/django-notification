@@ -46,6 +46,9 @@ class OnSiteBackend(backends.BaseBackend):
                 "full.html",
             ), notice_type.label, context)
 
+        if sender.__class__.__name__ == 'Company':
+            sender = sender.admin_primary if sender.admin_primary else sender.created_by
+
         Notice.objects.create(
             recipient=recipient,
             notice_type=notice_type,
