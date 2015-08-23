@@ -50,7 +50,7 @@ class BaseBackend(object):
         current_site = Site.objects.get_current()
         base_url = "%s://%s" % (default_http_protocol, current_site.domain)
         return Context({
-            "default_http_protocol": default_http_protocol,
+            "default_http_protocol": '%s:' % default_http_protocol,
             "current_site": current_site,
             "current_site_name": current_site.name,
             "base_url": base_url
