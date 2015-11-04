@@ -1,0 +1,94 @@
+label
+display
+description
+default
+notice type
+notice types
+user
+medium
+send
+notice setting
+You have received the following notice from %(current_site)s:\n
+\n
+%(message)s\n
+\n
+To see other notices or change how you receive notifications, please go to 
+%(default_http_protocol)s://%(current_site)s%(notices_url)s\n
+notice
+Notification Settings
+Notification Type
+Change
+You've requested to be notified about certain activities on
+To see other notices or change how you receive notifications, please go to
+Team
+You have
+you have a new notification
+has requested to join the group
+Your request to join the group
+Your request to join the group
+You have been banned from the group
+You have been promoted to manager of the group
+You are no longer banned from the group
+You have removed yourself as owner of the group
+You are now the owner of the group
+has joined the group
+has been accepted
+has been rejected
+for violating it's rules
+your request to join the group
+has been accepted
+your request to join the group
+has been rejected
+you have been banned from the group
+congratulations! You are now a manager of the group
+your ban has been lifted from group
+you have removed yourself as owner of the group
+congratulations! You are now the owner of the group
+a new member has been added to the group
+has requested to join the group 
+Your request to join the group 
+has been accepted
+Your request to join the group 
+has been rejected
+You have been banned from the group 
+for violating it's rules
+You have been promoted to manager of the group 
+You are no longer banned from the group 
+You have removed yourself as owner of the group 
+You are now the owner of the group 
+has joined the group
+You have
+started a new discussion in the group
+a new discussion was started in your group
+posted a new comment in group
+You have
+a new comment was added to a discussion you follow
+has created new product
+has updated the product
+for
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
