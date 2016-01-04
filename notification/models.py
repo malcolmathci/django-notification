@@ -283,8 +283,8 @@ def send_now(users, label, extra_context=None, sender=None):
 
         if language is not None:
             # activate the user's language
-            # activate(language)
-            activate('ru')
+            activate(language)
+            # activate('ru')
 
             if hasattr(extra_context['target'], 'translations'):
                 try:
