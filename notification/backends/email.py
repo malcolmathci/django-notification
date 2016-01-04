@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext
 
@@ -18,6 +19,12 @@ class EmailBackend(backends.BaseBackend):
     def deliver(self, recipient, sender, notice_type, extra_context):
         # TODO: require this to be passed in extra_context
         #postman stuff
+
+        recipient = User.objects.get(id=recipient.id)
+        sender = User.objects.get(id=sender.id)
+
+        target = extra_context['target']
+
 
         if 'disallow_notice' in extra_context:
             if 'email' in extra_context['disallow_notice']:

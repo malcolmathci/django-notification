@@ -230,17 +230,27 @@ def get_notification_language(user):
     LanguageStoreNotAvailable if this site does not use translated
     notifications.
     """
+
     if getattr(settings, "NOTIFICATION_LANGUAGE_MODULE", False):
         try:
             app_label, model_name = settings.NOTIFICATION_LANGUAGE_MODULE.split(".")
             model = models.get_model(app_label, model_name)
             # pylint: disable-msg=W0212
             language_model = model._default_manager.get(user__id__exact=user.id)
-            if hasattr(language_model, "language"):
-                return language_model.language
+            if hasattr(language_model, "default_language"):
+                return language_model.default_language
         except (ImportError, ImproperlyConfigured, model.DoesNotExist):
             raise LanguageStoreNotAvailable
-    raise LanguageStoreNotAvailable
+    else:
+        try:
+            language_model = User.objects.get(id=user.id)
+            if not hasattr(language_model, "user_profile"):
+                raise LanguageStoreNotAvailable
+            language_model = language_model.user_profile
+            if hasattr(language_model, "default_language"):
+                return language_model.default_language
+        except (ImportError, ImproperlyConfigured, User.DoesNotExist):
+            raise LanguageStoreNotAvailable
 
 
 def send_now(users, label, extra_context=None, sender=None):
@@ -254,6 +264,7 @@ def send_now(users, label, extra_context=None, sender=None):
         "foo": "bar",
     })
     """
+
     sent = False
     if extra_context is None:
         extra_context = {}
@@ -272,7 +283,15 @@ def send_now(users, label, extra_context=None, sender=None):
 
         if language is not None:
             # activate the user's language
-            activate(language)
+            # activate(language)
+            activate('ru')
+
+            if hasattr(extra_context['target'], 'translations'):
+                try:
+                    extra_context['target'].title = extra_context['target'].translations.get(language_code='ru').title
+                except:
+                    pass
+
 
         for backend in NOTIFICATION_BACKENDS.values():
             if backend.can_send(user, notice_type):
