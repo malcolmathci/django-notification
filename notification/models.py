@@ -27,9 +27,9 @@ NOTICE_MEDIA, NOTICE_MEDIA_DEFAULTS = backends.load_media_defaults(
     backends=NOTIFICATION_BACKENDS
 )
 STATE_TYPES = (
-    (-1, u'Deleted'),
-    (0, u'Draft'),
-    (1, u'Published'),
+    (-1, _('Deleted')),
+    (0, _('Draft')),
+    (1, _('Published')),
 )
 
 class LanguageStoreNotAvailable(Exception):
