@@ -65,4 +65,9 @@ class EmailBackend(backends.BaseBackend):
             "message": messages["full.txt"],
         }, context)
         recipients = ['"%s" <%s>' % (recipient.get_full_name(), recipient.email)]
-        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipients)
+
+        if settings.DEBUG:
+            if recipient.is_staff:
+                send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipients)
+        else:
+            send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipients)
