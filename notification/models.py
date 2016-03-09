@@ -286,7 +286,7 @@ def send_now(users, label, extra_context=None, sender=None):
             activate(language)
             # activate('ru')
 
-            if hasattr(extra_context['target'], 'translations'):
+            if 'target' in extra_context and hasattr(extra_context['target'], 'translations'):
                 try:
                     extra_context['target'].title = extra_context['target'].translations.get(language_code='ru').title
                 except:

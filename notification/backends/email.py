@@ -23,7 +23,8 @@ class EmailBackend(backends.BaseBackend):
         recipient = User.objects.get(id=recipient.id)
         sender = User.objects.get(id=sender.id)
 
-        target = extra_context['target']
+        if 'target' in extra_context:
+            target = extra_context['target']
 
 
         if 'disallow_notice' in extra_context:
