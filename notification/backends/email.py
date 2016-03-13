@@ -41,7 +41,7 @@ class EmailBackend(backends.BaseBackend):
             "recipient": recipient,
             "sender": sender,
             "notice": ugettext(notice_type.past_tense),
-            'default_profile_photo': settings.DEFAULT_PROFILE_PHOTO,
+            'default_profile_photo': getattr(settings, 'DEFAULT_PROFILE_PHOTO', None),
             'target_url': target_url,
         })
         context.update(extra_context)
