@@ -61,12 +61,14 @@ class NoticeType(models.Model):
         verbose_name_plural = _("notice types")
 
     @classmethod
-    def create(cls, label, display, past_tense, description, default=2, verbosity=1):
+    def create(cls, label, display, description, past_tense=None, default=2, verbosity=1):
         """
         Creates a new NoticeType.
 
         This is intended to be used by other apps as a post_syncdb manangement step.
         """
+        if not past_tense:
+            past_tense = display
         try:
             notice_type = cls._default_manager.get(label=label)
             updated = False
